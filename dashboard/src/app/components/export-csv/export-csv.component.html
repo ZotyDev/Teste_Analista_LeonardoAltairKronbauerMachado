@@ -1,0 +1,22 @@
+<button
+  (click)="export()"
+  [disabled]="data().length === 0"
+  class="
+    flex items-center gap-2
+    px-4 py-2.5 rounded-xl
+    text-sm font-medium
+    bg-[#4B2317] text-white
+    cursor-pointer
+    hover:bg-[#3D1C12]
+    disabled:opacity-50 disabled:cursor-not-allowed
+    transition-colors
+  "
+>
+  <i class="fa-solid fa-download"></i>
+  <span>Exportar CSV</span>
+  @if (isFiltered()) {
+    <span class="text-xs bg-white/20 px-1.5 py-0.5 rounded">
+      {{ data().length }} filtrados
+    </span>
+  }
+</button>

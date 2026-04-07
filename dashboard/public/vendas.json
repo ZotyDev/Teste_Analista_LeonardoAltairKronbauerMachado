@@ -1,0 +1,22 @@
+[
+  { "id": 1001, "cliente": "João Silva", "data": "2026-04-01", "produto": "ARROZ BRANCO 5KG", "valor": 125.00, "status": "Concluído" },
+  { "id": 1002, "cliente": "Maria Souza", "data": "2026-04-02", "produto": "ARROZ BRANCO 2KG", "valor": 48.00, "status": "Cancelado" },
+  { "id": 1003, "cliente": "Pedro Lima", "data": "2026-04-03", "produto": "ARROZ PARBO 5KG", "valor": 135.00, "status": "Pendente" },
+  { "id": 1004, "cliente": "Carla Mendes", "data": "2026-04-04", "produto": "ARROZ INTEGRAL 5KG", "valor": 150.00, "status": "Concluído" },
+  { "id": 1005, "cliente": "Lucas Pereira", "data": "2026-04-04", "produto": "ARROZ BRANCO 5KG", "valor": 250.00, "status": "Concluído" },
+  { "id": 1006, "cliente": "Marcos Silva", "data": "2026-04-05", "produto": "ARROZ PARBO 2KG", "valor": 52.00, "status": "Concluído" },
+  { "id": 1007, "cliente": "Juliana Alves", "data": "2026-04-05", "produto": "ARROZ INTEGRAL 2KG", "valor": 60.00, "status": "Cancelado" },
+  { "id": 1008, "cliente": "João Silva", "data": "2026-04-06", "produto": "ARROZ BRANCO 2KG", "valor": 24.00, "status": "Concluído" },
+  { "id": 1009, "cliente": "Fernanda Reis", "data": "2026-04-06", "produto": "ARROZ PARBO 5KG", "valor": 135.00, "status": "Pendente" },
+  { "id": 1010, "cliente": "Eduardo Gomes", "data": "2026-04-07", "produto": "ARROZ BRANCO 5KG", "valor": 125.00, "status": "Concluído" },
+  { "id": 1011, "cliente": "Patrícia Luz", "data": "2026-04-07", "produto": "ARROZ INTEGRAL 5KG", "valor": 300.00, "status": "Concluído" },
+  { "id": 1012, "cliente": "André Costa", "data": "2026-04-08", "produto": "ARROZ PARBO 2KG", "valor": 104.00, "status": "Cancelado" },
+  { "id": 1013, "cliente": "Carolina Lima", "data": "2026-04-08", "produto": "ARROZ BRANCO 5KG", "valor": 500.00, "status": "Concluído" },
+  { "id": 1014, "cliente": "Guilherme Paz", "data": "2026-04-09", "produto": "ARROZ INTEGRAL 2KG", "valor": 120.00, "status": "Pendente" },
+  { "id": 1015, "cliente": "Daniela Lopes", "data": "2026-04-09", "produto": "ARROZ BRANCO 2KG", "valor": 96.00, "status": "Concluído" },
+  { "id": 1016, "cliente": "Maria Souza", "data": "2026-04-10", "produto": "ARROZ PARBO 5KG", "valor": 270.00, "status": "Concluído" },
+  { "id": 1017, "cliente": "Adriano Matos", "data": "2026-04-10", "produto": "ARROZ BRANCO 5KG", "valor": 125.00, "status": "Cancelado" },
+  { "id": 1018, "cliente": "Marina Borges", "data": "2026-04-11", "produto": "ARROZ INTEGRAL 5KG", "valor": 150.00, "status": "Concluído" },
+  { "id": 1019, "cliente": "Camila Ramos", "data": "2026-04-11", "produto": "ARROZ PARBO 2KG", "valor": 52.00, "status": "Pendente" },
+  { "id": 1020, "cliente": "Diego Barbosa", "data": "2026-04-12", "produto": "ARROZ BRANCO 5KG", "valor": 375.00, "status": "Concluído" }
+]

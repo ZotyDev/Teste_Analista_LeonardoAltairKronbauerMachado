@@ -1,0 +1,117 @@
+<div class="fixed inset-0 z-50 bg-black/20" (click)="onBackdropClick()">
+  <aside
+    class="fixed inset-y-0 right-0 w-full max-w-sm bg-white shadow-xl flex flex-col"
+    (click)="stopPropagation($event)"
+  >
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-[#4B2317] to-[#5D2E1E] px-5 py-4 flex items-center justify-between">
+      <h3 class="text-white font-semibold">Detalhes do Pedido</h3>
+      <button
+        class="p-1.5 -mr-1.5 rounded-lg text-white/70 hover:text-white hover:bg-white/10 transition-colors"
+        (click)="onClose()"
+      >
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
+    </header>
+
+    <!-- Content -->
+    <div class="flex-1 overflow-y-auto px-5 py-5 space-y-5">
+      <!-- Status -->
+      <div class="flex justify-center">
+        <span
+          class="status-badge"
+          [class.status-success]="venda().status === 'Concluído'"
+          [class.status-warning]="venda().status === 'Pendente'"
+          [class.status-danger]="venda().status === 'Cancelado'"
+        >
+          @switch (venda().status) {
+            @case ('Concluído') {
+              <i class="fa-solid fa-check"></i>
+            }
+            @case ('Pendente') {
+              <i class="fa-solid fa-clock"></i>
+            }
+            @case ('Cancelado') {
+              <i class="fa-solid fa-xmark"></i>
+            }
+          }
+          {{ venda().status }}
+        </span>
+      </div>
+
+      <!-- Value Card -->
+      <div class="bg-gradient-to-br from-[#4B2317]/5 to-[#C5A059]/10 rounded-xl p-5 text-center ring-1 ring-[#C5A059]/20">
+        <div class="text-xs text-slate-500 uppercase tracking-wider font-medium flex items-center justify-center gap-1.5 mb-1">
+          <i class="fa-solid fa-dollar-sign text-[#C5A059]"></i>
+          Valor
+        </div>
+        <p class="text-2xl font-bold text-[#4B2317]">
+          {{ venda().valor | currency:'BRL':'symbol':'1.2-2' }}
+        </p>
+      </div>
+
+      <!-- Details -->
+      <dl class="divide-y divide-slate-100">
+        <div class="flex items-center justify-between py-3">
+          <dt class="text-sm text-slate-500 flex items-center gap-2">
+            <i class="fa-solid fa-hashtag"></i>
+            ID
+          </dt>
+          <dd class="text-sm font-mono text-slate-700">#{{ venda().id }}</dd>
+        </div>
+        <div class="flex items-center justify-between py-3">
+          <dt class="text-sm text-slate-500 flex items-center gap-2">
+            <i class="fa-solid fa-calendar"></i>
+            Data
+          </dt>
+          <dd class="text-sm text-slate-700">{{ venda().data | date:'dd/MM/yyyy' }}</dd>
+        </div>
+        <div class="flex items-center justify-between py-3">
+          <dt class="text-sm text-slate-500 flex items-center gap-2">
+            <i class="fa-solid fa-user"></i>
+            Cliente
+          </dt>
+          <dd class="text-sm font-semibold text-[#4B2317]">{{ venda().cliente }}</dd>
+        </div>
+        <div class="flex items-center justify-between py-3">
+          <dt class="text-sm text-slate-500 flex items-center gap-2">
+            <i class="fa-solid fa-cube"></i>
+            Produto
+          </dt>
+          <dd class="text-sm text-slate-700">{{ venda().produto }}</dd>
+        </div>
+      </dl>
+
+      <!-- Alerts -->
+      @if (venda().status === 'Cancelado') {
+        <div class="flex gap-3 p-4 rounded-xl bg-red-50 border border-red-200">
+          <i class="fa-solid fa-triangle-exclamation text-red-500 shrink-0"></i>
+          <div>
+            <p class="text-sm font-medium text-red-800">Pedido Cancelado</p>
+            <p class="text-xs text-red-600 mt-0.5">Não incluído no faturamento.</p>
+          </div>
+        </div>
+      }
+
+      @if (venda().status === 'Pendente') {
+        <div class="flex gap-3 p-4 rounded-xl bg-amber-50 border border-amber-200">
+          <i class="fa-solid fa-clock text-amber-500 shrink-0"></i>
+          <div>
+            <p class="text-sm font-medium text-amber-800">Aguardando</p>
+            <p class="text-xs text-amber-600 mt-0.5">Pendente de confirmação.</p>
+          </div>
+        </div>
+      }
+    </div>
+
+    <!-- Footer -->
+    <footer class="px-5 py-4 border-t border-slate-100 bg-slate-50">
+      <button
+        class="w-full py-2.5 rounded-xl bg-[#4B2317] hover:bg-[#3D1C12] text-white font-medium text-sm transition-colors"
+        (click)="onClose()"
+      >
+        Fechar
+      </button>
+    </footer>
+  </aside>
+</div>

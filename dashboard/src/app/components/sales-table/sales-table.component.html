@@ -1,0 +1,136 @@
+<div
+  class="table-scroll-wrapper"
+  [class.scroll-left]="scrollLeft > 1"
+  [class.scroll-right]="maxScroll > 1 && scrollLeft < maxScroll - 1"
+>
+  <div
+    class="table-scroll-container"
+    (scroll)="onScroll($event)"
+    #scrollContainer
+  >
+  <table class="w-full text-left border-collapse min-w-[640px]">
+    <thead>
+      <tr>
+        <th class="th-cell" (click)="onSort('id')">
+          <div class="th-content">
+            <i class="fa-solid fa-hashtag th-icon"></i>
+            ID
+            <i
+              class="fa-solid fa-chevron-up sort-arrow"
+              [class.opacity-30]="!isSortedBy('id')"
+              [class.rotate-180]="isSortedBy('id') && isDescending()"
+            ></i>
+          </div>
+        </th>
+
+        <th class="th-cell" (click)="onSort('data')">
+          <div class="th-content">
+            <i class="fa-solid fa-calendar th-icon"></i>
+            Data
+            <i
+              class="fa-solid fa-chevron-up sort-arrow"
+              [class.opacity-30]="!isSortedBy('data')"
+              [class.rotate-180]="isSortedBy('data') && isDescending()"
+            ></i>
+          </div>
+        </th>
+
+        <th class="th-cell" (click)="onSort('cliente')">
+          <div class="th-content">
+            <i class="fa-solid fa-user th-icon"></i>
+            Cliente
+            <i
+              class="fa-solid fa-chevron-up sort-arrow"
+              [class.opacity-30]="!isSortedBy('cliente')"
+              [class.rotate-180]="isSortedBy('cliente') && isDescending()"
+            ></i>
+          </div>
+        </th>
+
+        <th class="th-cell" (click)="onSort('produto')">
+          <div class="th-content">
+            <i class="fa-solid fa-cube th-icon"></i>
+            Produto
+            <i
+              class="fa-solid fa-chevron-up sort-arrow"
+              [class.opacity-30]="!isSortedBy('produto')"
+              [class.rotate-180]="isSortedBy('produto') && isDescending()"
+            ></i>
+          </div>
+        </th>
+
+        <th class="th-cell" (click)="onSort('valor')">
+          <div class="th-content justify-end">
+            <i class="fa-solid fa-dollar-sign th-icon"></i>
+            Valor
+            <i
+              class="fa-solid fa-chevron-up sort-arrow"
+              [class.opacity-30]="!isSortedBy('valor')"
+              [class.rotate-180]="isSortedBy('valor') && isDescending()"
+            ></i>
+          </div>
+        </th>
+
+        <th class="th-cell" (click)="onSort('status')">
+          <div class="th-content justify-center">
+            <i class="fa-solid fa-circle-check th-icon"></i>
+            Status
+            <i
+              class="fa-solid fa-chevron-up sort-arrow"
+              [class.opacity-30]="!isSortedBy('status')"
+              [class.rotate-180]="isSortedBy('status') && isDescending()"
+            ></i>
+          </div>
+        </th>
+      </tr>
+    </thead>
+
+    <tbody class="divide-y divide-slate-100">
+      @for (venda of sales(); track venda.id) {
+        <tr
+          class="hover:bg-[#C5A059]/5 transition-colors cursor-pointer"
+          [class.bg-red-50]="venda.status === 'Cancelado'"
+          [class.bg-amber-50/50]="venda.status === 'Pendente'"
+          (click)="onSelect(venda)"
+        >
+          <td class="td-cell font-mono text-slate-500">#{{ venda.id }}</td>
+          <td class="td-cell">{{ venda.data | date:'dd/MM/yyyy' }}</td>
+          <td class="td-cell font-medium text-[#4B2317]">{{ venda.cliente }}</td>
+          <td class="td-cell text-slate-600">{{ venda.produto }}</td>
+          <td class="td-cell text-right font-mono font-medium">
+            {{ venda.valor | currency:'BRL':'symbol':'1.2-2' }}
+          </td>
+          <td class="td-cell text-center">
+            <span
+              class="status-badge"
+              [class.status-success]="venda.status === 'Concluído'"
+              [class.status-warning]="venda.status === 'Pendente'"
+              [class.status-danger]="venda.status === 'Cancelado'"
+            >
+              @switch (venda.status) {
+                @case ('Concluído') {
+                  <i class="fa-solid fa-check text-xs"></i>
+                }
+                @case ('Pendente') {
+                  <i class="fa-solid fa-clock text-xs"></i>
+                }
+                @case ('Cancelado') {
+                  <i class="fa-solid fa-xmark text-xs"></i>
+                }
+              }
+              {{ venda.status }}
+            </span>
+          </td>
+        </tr>
+      } @empty {
+        <tr>
+          <td colspan="6" class="px-6 py-12 text-center">
+            <i class="fa-solid fa-face-frown text-5xl text-slate-300 mb-3"></i>
+            <p class="text-slate-400">Nenhum pedido encontrado.</p>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+  </div>
+</div>

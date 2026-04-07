@@ -1,0 +1,103 @@
+<div class="flex flex-col sm:flex-row items-center justify-between gap-4 px-4 sm:px-6 py-3">
+  <!-- Left side: Items per page & count info -->
+  <div class="flex items-center gap-4 text-sm">
+    <div class="flex items-center gap-2 text-slate-600">
+      <label for="pageSize" class="text-slate-500">Exibir</label>
+      <div class="relative">
+        <select
+          id="pageSize"
+          [value]="pageSize()"
+          (change)="onPageSizeChange($event)"
+          class="
+            pl-3 pr-8 py-1.5
+            border border-slate-200 rounded-lg
+            text-sm bg-white cursor-pointer
+            hover:border-slate-300
+            focus:outline-none focus:ring-2 focus:ring-[#C5A059] focus:border-transparent
+            appearance-none transition-colors
+          "
+        >
+          @for (size of pageSizeOptions; track size) {
+            <option [value]="size">{{ size }}</option>
+          }
+        </select>
+        <i class="fa-solid fa-chevron-down absolute right-2.5 top-1/2 -translate-y-1/2 text-xs text-slate-400 pointer-events-none"></i>
+      </div>
+      <span class="text-slate-500">por página</span>
+    </div>
+
+    <span class="hidden sm:block w-px h-4 bg-slate-200"></span>
+
+    <span class="text-slate-500">
+      @if (totalItems() > 0) {
+        <span class="font-medium text-slate-700">{{ startItem() }}-{{ endItem() }}</span>
+        de
+        <span class="font-medium text-slate-700">{{ totalItems() }}</span>
+      } @else {
+        Nenhum registro
+      }
+    </span>
+  </div>
+
+  <!-- Right side: Page controls -->
+  <nav class="flex items-center gap-1" aria-label="Paginação">
+    <!-- Previous -->
+    <button
+      (click)="previous()"
+      [disabled]="!canGoPrevious()"
+      aria-label="Página anterior"
+      class="
+        w-8 h-8 flex items-center justify-center
+        text-sm text-slate-500 rounded-lg cursor-pointer
+        hover:bg-slate-100 hover:text-[#4B2317]
+        disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-slate-500
+        transition-colors
+      "
+    >
+      <i class="fa-solid fa-chevron-left"></i>
+    </button>
+
+    <!-- Page numbers -->
+    <div class="flex items-center gap-1">
+      @for (page of visiblePages(); track $index) {
+        @if (page === 'ellipsis') {
+          <span class="px-1 text-slate-300">
+            <i class="fa-solid fa-ellipsis"></i>
+          </span>
+        } @else {
+          <button
+            (click)="goToPage(page)"
+            [attr.aria-current]="page === currentPage() ? 'page' : null"
+            class="
+              min-w-[2rem] h-8 px-2
+              flex items-center justify-center
+              text-sm font-medium rounded-lg cursor-pointer
+              transition-colors
+            "
+            [ngClass]="page === currentPage()
+              ? 'bg-[#4B2317] text-white shadow-sm hover:bg-[#3D1C12]'
+              : 'text-slate-600 hover:bg-slate-100 hover:text-[#4B2317]'"
+          >
+            {{ page }}
+          </button>
+        }
+      }
+    </div>
+
+    <!-- Next -->
+    <button
+      (click)="next()"
+      [disabled]="!canGoNext()"
+      aria-label="Próxima página"
+      class="
+        w-8 h-8 flex items-center justify-center
+        text-sm text-slate-500 rounded-lg cursor-pointer
+        hover:bg-slate-100 hover:text-[#4B2317]
+        disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-slate-500
+        transition-colors
+      "
+    >
+      <i class="fa-solid fa-chevron-right"></i>
+    </button>
+  </nav>
+</div>
