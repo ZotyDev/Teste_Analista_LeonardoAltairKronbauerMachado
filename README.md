@@ -65,4 +65,4 @@ A query de **performance** retorna um ranking de clientes por valor total gasto,
 
 **Frontend:** Angular 21, TypeScript, TailwindCSS, RxJS, Vitest
 
-**SQL:** ANSI SQL (testado em SQLite)
+**SQL:** ANSI SQL (testado em PostgreSQL)
