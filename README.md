@@ -1,38 +1,65 @@
 # Desafio Técnico - Analista de Sistemas
 
-Dashboard de vendas e análise de dados desenvolvido para o processo seletivo.
+Este repositório contém duas entregas: um **dashboard de vendas** em Angular e **queries SQL** para análise de dados de clientes.
 
-## Estrutura do Projeto
-
-- `/dashboard`: Aplicação Angular 21 (Frontend).
-- `/sql`: Queries SQL para análise de performance e churn.
-- `vendas.json`: Base de dados utilizada pelo dashboard.
+---
 
 ## Como Executar
 
-### Dashboard (Angular)
+### Dashboard
 
-1. Navegue até a pasta:
-  ```bash
-  cd dashboard
-  ```
-2. Instale as dependências:
-  ```bash
-  npm install
-  ```
-3. Inicie o servidor de desenvolvimento:
-  ```bash
-  npm start
-  ```
-4. Acesse em: `http://localhost:4200`
+```bash
+cd dashboard
+npm install
+npm start
+```
 
-### Banco de Dados (SQL)
+Acesse em `http://localhost:4200`. Para rodar os testes: `npm test`.
 
-As consultas SQL estão localizadas na pasta `/sql` e foram escritas seguindo o padrão PostgreSQL.
+### SQL
 
-## Tecnologias Utilizadas
+As queries estão na pasta `/sql` e seguem o padrão ANSI SQL — funcionam em PostgreSQL, MySQL, SQLite e outros. Basta executá-las no SGBD de sua preferência.
 
-- Angular 21
-- Typescript
-- PostgreSQL
-- Node.js
+---
+
+## Decisões Técnicas
+
+### Dashboard Angular
+
+O dashboard foi construído com Angular 21 usando a nova API de Signals combinada com RxJS. Essa escolha permite que filtros e ordenação sejam reativos sem necessidade de refresh manual, e o `shareReplay` garante que a requisição HTTP seja feita apenas uma vez, mantendo os dados em cache.
+
+Todos os componentes são standalone (sem NgModules), o que simplifica a estrutura e melhora o bundle final. A separação segue o padrão onde o `DashboardComponent` concentra a lógica de estado, enquanto os demais componentes (tabela, filtros, paginação, cards de KPI) são apenas apresentacionais.
+
+Um detalhe importante: os cálculos de valores monetários são feitos em centavos (multiplicando por 100 e trabalhando com inteiros) para evitar os erros clássicos de ponto flutuante do JavaScript. A conversão para reais acontece só na hora de exibir.
+
+A busca por cliente ignora acentos e maiúsculas/minúsculas, facilitando a experiência do usuário.
+
+### Queries SQL
+
+A query de **churn** identifica clientes que já fizeram compras mas estão inativos há mais de 90 dias. Usa `EXISTS` e `NOT EXISTS` ao invés de `IN` com subquery, que tende a performar melhor em bases maiores.
+
+A query de **performance** retorna um ranking de clientes por valor total gasto, tratando casos onde o cliente nunca fez pedidos com `COALESCE` para evitar nulos.
+
+---
+
+## Estrutura do Projeto
+
+```
+├── dashboard/
+│   └── src/app/
+│       ├── components/      # Componentes visuais (tabela, filtros, cards, etc)
+│       ├── models/          # Interfaces TypeScript
+│       └── services/        # Serviço de vendas com estado reativo
+│
+└── sql/
+    ├── churn_clientes.sql        # Clientes inativos há 90+ dias
+    └── performance_clientes.sql  # Ranking por valor gasto
+```
+
+---
+
+## Tecnologias
+
+**Frontend:** Angular 21, TypeScript, TailwindCSS, RxJS, Vitest
+
+**SQL:** ANSI SQL (testado em SQLite)
