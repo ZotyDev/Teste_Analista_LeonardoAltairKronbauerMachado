@@ -36,6 +36,8 @@ Um detalhe importante: os cálculos de valores monetários são feitos em centav
 
 A busca por cliente ignora acentos e maiúsculas/minúsculas, facilitando a experiência do usuário.
 
+As cores utilizadas na interface foram baseadas na identidade visual da Pirahy Alimentos, buscando manter consistência visual e reforçar um aspecto mais realista de aplicação corporativa.
+
 ### Queries SQL
 
 A query de **churn** identifica clientes que já fizeram compras mas estão inativos há mais de 90 dias. Usa `EXISTS` e `NOT EXISTS` ao invés de `IN` com subquery, que tende a performar melhor em bases maiores.
