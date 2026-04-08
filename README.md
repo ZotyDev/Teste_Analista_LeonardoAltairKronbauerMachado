@@ -2,6 +2,8 @@
 
 Este repositório contém duas entregas: um **dashboard de vendas** em Angular e **queries SQL** para análise de dados de clientes.
 
+**Demo:** https://zotydev.github.io/Teste_Analista_LeonardoAltairKronbauerMachado/
+
 ---
 
 ## Como Executar
