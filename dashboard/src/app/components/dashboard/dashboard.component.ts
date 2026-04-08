@@ -8,6 +8,7 @@ import { SalesTableComponent } from '../sales-table/sales-table.component';
 import { SaleDetailPanelComponent } from '../sale-detail-panel/sale-detail-panel.component';
 import { ExportCsvComponent } from '../export-csv/export-csv.component';
 import { PaginationComponent } from '../pagination/pagination.component';
+import { BrlCurrencyPipe } from '../../pipes/brl-currency.pipe';
 import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
@@ -21,6 +22,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
     SaleDetailPanelComponent,
     ExportCsvComponent,
     PaginationComponent,
+    BrlCurrencyPipe,
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',

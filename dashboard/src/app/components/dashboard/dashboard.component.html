@@ -17,7 +17,7 @@
         <app-kpi-card
           class="col-span-2 lg:col-span-1"
           label="Faturamento"
-          [value]="(stats.faturamentoTotal | currency:'BRL':'symbol':'1.2-2') ?? ''"
+          [value]="stats.faturamentoTotal | brlCurrency"
           subtitle="Apenas concluídos"
           variant="gold"
         >
@@ -26,7 +26,7 @@
 
         <app-kpi-card
           label="Ticket Médio"
-          [value]="(stats.ticketMedio | currency:'BRL':'symbol':'1.2-2') ?? ''"
+          [value]="stats.ticketMedio | brlCurrency"
           subtitle="Por pedido"
           variant="gold"
         >

@@ -32,7 +32,7 @@ O dashboard foi construído com Angular 21 usando a nova API de Signals combinad
 
 Todos os componentes são standalone (sem NgModules), o que simplifica a estrutura e melhora o bundle final. A separação segue o padrão onde o `DashboardComponent` concentra a lógica de estado, enquanto os demais componentes (tabela, filtros, paginação, cards de KPI) são apenas apresentacionais.
 
-Um detalhe importante: os cálculos de valores monetários são feitos em centavos (multiplicando por 100 e trabalhando com inteiros) para evitar os erros clássicos de ponto flutuante do JavaScript. A conversão para reais acontece só na hora de exibir.
+Um detalhe importante: os cálculos de valores monetários são feitos em centavos (multiplicando por 100 e trabalhando com inteiros) para evitar os erros clássicos de ponto flutuante do JavaScript. A conversão para reais acontece só na hora de exibir. Para garantir a formatação brasileira (R$ 1.000,00) independente do locale do navegador, foi criado um pipe customizado (`BrlCurrencyPipe`) que usa `Intl.NumberFormat` com locale fixo em `pt-BR`.
 
 A busca por cliente ignora acentos e maiúsculas/minúsculas, facilitando a experiência do usuário.
 
@@ -51,6 +51,7 @@ A query de **performance** retorna um ranking de clientes por valor total gasto,
 │   └── src/app/
 │       ├── components/      # Componentes visuais (tabela, filtros, cards, etc)
 │       ├── models/          # Interfaces TypeScript
+│       ├── pipes/           # Pipes customizados (BrlCurrencyPipe)
 │       └── services/        # Serviço de vendas com estado reativo
 │
 └── sql/

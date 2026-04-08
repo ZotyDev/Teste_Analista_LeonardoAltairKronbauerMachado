@@ -1,11 +1,12 @@
 import { Component, input, output, viewChild, ElementRef, AfterViewInit, HostListener, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SortableColumn, SortConfig, Venda } from '../../models/venda.model';
+import { BrlCurrencyPipe } from '../../pipes/brl-currency.pipe';
 
 @Component({
   selector: 'app-sales-table',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, BrlCurrencyPipe],
   templateUrl: './sales-table.component.html',
   styleUrl: './sales-table.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

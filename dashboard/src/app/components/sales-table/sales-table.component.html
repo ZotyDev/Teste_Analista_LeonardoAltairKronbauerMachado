@@ -98,7 +98,7 @@
           <td class="td-cell font-medium text-[#4B2317]">{{ venda.cliente }}</td>
           <td class="td-cell text-slate-600">{{ venda.produto }}</td>
           <td class="td-cell text-right font-mono font-medium">
-            {{ venda.valor | currency:'BRL':'symbol':'1.2-2' }}
+            {{ venda.valor | brlCurrency }}
           </td>
           <td class="td-cell text-center">
             <span
