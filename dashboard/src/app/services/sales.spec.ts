@@ -100,12 +100,126 @@ describe('SalesService', () => {
     expect(filtered.length).toBe(4);
   });
 
-  it('should sort by column', async () => {
-    service.updateSort('valor');
-    const promise = firstValueFrom(service.filteredSales$);
-    httpMock.expectOne('vendas.json').flush(mockVendas);
-    const sorted = await promise;
+  describe('sorting', () => {
+    const sortTestData: Venda[] = [
+      { id: 3, cliente: 'Carlos', data: '2026-04-15', valor: 500, status: 'Pendente', produto: 'Arroz Tipo 2' },
+      { id: 1, cliente: 'Ana', data: '2026-04-01', valor: 2000, status: 'Concluído', produto: 'Semente' },
+      { id: 4, cliente: 'Diana', data: '2026-04-20', valor: 100, status: 'Cancelado', produto: 'Arroz Tipo 1' },
+      { id: 2, cliente: 'Bruno', data: '2026-04-10', valor: 1500, status: 'Concluído', produto: 'Arroz Tipo 3' },
+    ];
 
-    expect(sorted[0].valor).toBe(1000);
+    it('should sort by id ascending', async () => {
+      service.updateSort('id');
+      const promise = firstValueFrom(service.filteredSales$);
+      httpMock.expectOne('vendas.json').flush(sortTestData);
+      const sorted = await promise;
+
+      expect(sorted.map(v => v.id)).toEqual([1, 2, 3, 4]);
+    });
+
+    it('should sort by id descending', async () => {
+      service.updateSort('id');
+      service.updateSort('id');
+      const promise = firstValueFrom(service.filteredSales$);
+      httpMock.expectOne('vendas.json').flush(sortTestData);
+      const sorted = await promise;
+
+      expect(sorted.map(v => v.id)).toEqual([4, 3, 2, 1]);
+    });
+
+    it('should sort by cliente ascending', async () => {
+      service.updateSort('cliente');
+      const promise = firstValueFrom(service.filteredSales$);
+      httpMock.expectOne('vendas.json').flush(sortTestData);
+      const sorted = await promise;
+
+      expect(sorted.map(v => v.cliente)).toEqual(['Ana', 'Bruno', 'Carlos', 'Diana']);
+    });
+
+    it('should sort by cliente descending', async () => {
+      service.updateSort('cliente');
+      service.updateSort('cliente');
+      const promise = firstValueFrom(service.filteredSales$);
+      httpMock.expectOne('vendas.json').flush(sortTestData);
+      const sorted = await promise;
+
+      expect(sorted.map(v => v.cliente)).toEqual(['Diana', 'Carlos', 'Bruno', 'Ana']);
+    });
+
+    it('should sort by data ascending', async () => {
+      service.updateSort('data');
+      const promise = firstValueFrom(service.filteredSales$);
+      httpMock.expectOne('vendas.json').flush(sortTestData);
+      const sorted = await promise;
+
+      expect(sorted.map(v => v.data)).toEqual(['2026-04-01', '2026-04-10', '2026-04-15', '2026-04-20']);
+    });
+
+    it('should sort by data descending', async () => {
+      service.updateSort('data');
+      service.updateSort('data');
+      const promise = firstValueFrom(service.filteredSales$);
+      httpMock.expectOne('vendas.json').flush(sortTestData);
+      const sorted = await promise;
+
+      expect(sorted.map(v => v.data)).toEqual(['2026-04-20', '2026-04-15', '2026-04-10', '2026-04-01']);
+    });
+
+    it('should sort by valor ascending', async () => {
+      service.updateSort('valor');
+      const promise = firstValueFrom(service.filteredSales$);
+      httpMock.expectOne('vendas.json').flush(sortTestData);
+      const sorted = await promise;
+
+      expect(sorted.map(v => v.valor)).toEqual([100, 500, 1500, 2000]);
+    });
+
+    it('should sort by valor descending', async () => {
+      service.updateSort('valor');
+      service.updateSort('valor');
+      const promise = firstValueFrom(service.filteredSales$);
+      httpMock.expectOne('vendas.json').flush(sortTestData);
+      const sorted = await promise;
+
+      expect(sorted.map(v => v.valor)).toEqual([2000, 1500, 500, 100]);
+    });
+
+    it('should sort by status ascending', async () => {
+      service.updateSort('status');
+      const promise = firstValueFrom(service.filteredSales$);
+      httpMock.expectOne('vendas.json').flush(sortTestData);
+      const sorted = await promise;
+
+      expect(sorted.map(v => v.status)).toEqual(['Cancelado', 'Concluído', 'Concluído', 'Pendente']);
+    });
+
+    it('should sort by status descending', async () => {
+      service.updateSort('status');
+      service.updateSort('status');
+      const promise = firstValueFrom(service.filteredSales$);
+      httpMock.expectOne('vendas.json').flush(sortTestData);
+      const sorted = await promise;
+
+      expect(sorted.map(v => v.status)).toEqual(['Pendente', 'Concluído', 'Concluído', 'Cancelado']);
+    });
+
+    it('should sort by produto ascending', async () => {
+      service.updateSort('produto');
+      const promise = firstValueFrom(service.filteredSales$);
+      httpMock.expectOne('vendas.json').flush(sortTestData);
+      const sorted = await promise;
+
+      expect(sorted.map(v => v.produto)).toEqual(['Arroz Tipo 1', 'Arroz Tipo 2', 'Arroz Tipo 3', 'Semente']);
+    });
+
+    it('should sort by produto descending', async () => {
+      service.updateSort('produto');
+      service.updateSort('produto');
+      const promise = firstValueFrom(service.filteredSales$);
+      httpMock.expectOne('vendas.json').flush(sortTestData);
+      const sorted = await promise;
+
+      expect(sorted.map(v => v.produto)).toEqual(['Semente', 'Arroz Tipo 3', 'Arroz Tipo 2', 'Arroz Tipo 1']);
+    });
   });
 });

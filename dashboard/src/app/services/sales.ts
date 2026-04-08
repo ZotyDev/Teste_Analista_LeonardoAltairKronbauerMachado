@@ -46,9 +46,14 @@ export class SalesService {
     return [...vendas].sort((a, b) => {
       const valA = a[sort.column];
       const valB = b[sort.column];
-      const cmp = typeof valA === 'number' && typeof valB === 'number'
-        ? valA - valB
-        : String(valA).localeCompare(String(valB), 'pt-BR');
+      let cmp: number;
+      if (sort.column === 'data') {
+        cmp = new Date(valA as string).getTime() - new Date(valB as string).getTime();
+      } else if (typeof valA === 'number' && typeof valB === 'number') {
+        cmp = valA - valB;
+      } else {
+        cmp = String(valA).localeCompare(String(valB), 'pt-BR');
+      }
       return sort.direction === 'asc' ? cmp : -cmp;
     });
   }
